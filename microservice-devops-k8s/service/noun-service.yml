@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata: 
+    name: noun
+    labels:
+        app: learn-english
+        tier: frontend
+spec:
+    type: NodePort
+    ports:
+      - targetPort: 9022
+        port: 9022
+        nodePort: 30005
+    selector:
+        svc: noun-service

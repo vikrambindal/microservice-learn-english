@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+    name: sentence
+    labels:
+        app: learn-english
+        tier: frontend
+spec:
+    replicas: 1
+    template:
+        metadata:
+            name: sentence
+            labels:
+                svc: sentence-service
+        spec:
+            hostname: sentence
+            containers:
+                - name: sentence
+                  image: vikrambindal/learn-english-microservice:sentence-service
+                  env:
+                    - name: DISCOVERY_HOST
+                      value: "discovery-server"
+                    - name: SERVER_PORT
+                      value: "9025"
+    selector:
+        matchLabels:
+            svc: sentence-service

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata: 
+    name: article
+    labels:
+        app: learn-english
+        tier: frontend
+spec:
+    type: NodePort
+    ports:
+      - targetPort: 9021
+        port: 9021
+        nodePort: 30004
+    selector:
+        svc: article-service

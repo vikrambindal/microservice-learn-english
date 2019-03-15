@@ -1,0 +1,120 @@
+version: '2.1'
+services:
+  discovery-server:
+    image: "discovery-server:latest"
+    container_name: discovery-server
+    hostname: discovery-server
+    ports:
+      - "8761:8761"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+  config-server:
+    image: "config-server:latest"
+    container_name: config-server
+    hostname: config-server
+    ports:
+      - "8888:8888"
+    depends_on:
+      discovery-server:
+          condition: service_healthy
+    environment:
+      DISCOVERY_HOST: discovery-server
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:8888/verb/native"]
+        interval: 30s
+        timeout: 10s
+        retries: 5
+  adjective-service:
+    image: "adjective-service:latest"
+    ports:
+      - "9020:9020"
+    depends_on:
+      config-server:
+          condition: service_healthy
+    environment:
+      DISCOVERY_HOST: discovery-server
+      CONFIG_SERVER_HOST: config-server
+      SERVER_PORT: 9020
+    restart: always
+  article-service:
+    image: "article-service:latest"
+    container_name: article-service
+    ports:
+      - "9030:9030"
+    depends_on:
+      config-server:
+          condition: service_healthy
+    environment:
+      DISCOVERY_HOST: discovery-server
+      CONFIG_SERVER_HOST: config-server
+      SERVER_PORT: 9030
+    restart: always
+  noun-service:
+    image: "noun-service:latest"
+    container_name: noun-service
+    ports:
+      - "9040:9040"
+    depends_on:
+      config-server:
+          condition: service_healthy
+    environment:
+      DISCOVERY_HOST: discovery-server
+      CONFIG_SERVER_HOST: config-server
+      SERVER_PORT: 9040
+    restart: always
+  verb-service:
+    image: "verb-service:latest"
+    container_name: verb-service
+    ports:
+      - "9000:9000"
+    depends_on:
+      config-server:
+          condition: service_healthy
+    environment:
+      DISCOVERY_HOST: discovery-server
+      CONFIG_SERVER_HOST: config-server
+      SERVER_PORT: 9000
+    restart: always
+  subject-service:
+    image: "subject-service:latest"
+    container_name: subject-service
+    ports:
+      - "9010:9010"
+    depends_on:
+      config-server:
+          condition: service_healthy
+    environment:
+      DISCOVERY_HOST: discovery-server
+      CONFIG_SERVER_HOST: config-server
+      SERVER_PORT: 9010
+    restart: always
+  sentence-service:
+    image: "sentence-service:latest"
+    container_name: sentence
+    ports:
+      - "9050:9050"
+    depends_on:
+      config-server:
+          condition: service_healthy
+    environment:
+      DISCOVERY_HOST: discovery-server
+      CONFIG_SERVER_HOST: config-server
+      SERVER_PORT: 9050
+    restart: always
+  services-monitoring:
+    image: "services-monitoring:latest"
+    container_name: services-monitoring
+    hostname: services-monitoring
+    ports:
+      - "8070:8070"
+    depends_on:
+      config-server:
+          condition: service_healthy
+    environment:
+      DISCOVERY_HOST: discovery-server
+      CONFIG_SERVER_HOST: config-server
+      SERVER_PORT: 8070
+    restart: always

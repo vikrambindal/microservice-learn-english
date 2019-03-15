@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+    name: verb
+    labels:
+        app: learn-english
+        tier: frontend
+spec:
+    replicas: 3
+    template:
+        metadata:
+            name: verb
+            labels:
+                svc: verb-service
+        spec:
+            hostname: verb
+            containers:
+                - name: verb
+                  image: vikrambindal/learn-english-microservice:verb-service
+                  env:
+                    - name: DISCOVERY_HOST
+                      value: "discovery-server"
+                    - name: CONFIG_SERVER_PORT
+                      value: "30001"
+                    - name: CONFIG_SERVER_HOST
+                      value: "config-server"
+                    - name: SERVER_PORT
+                      value: "9024"
+    selector:
+        matchLabels:
+            svc: verb-service

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+    name: adjective
+    labels:
+        app: learn-english
+        tier: frontend
+spec:
+    replicas: 1
+    template:
+        metadata:
+            name: adjective
+            labels:
+                svc: adjective-service
+        spec:
+            hostname: adjective
+            containers:
+                - name: adjective
+                  image: vikrambindal/learn-english-microservice:adjective-service
+                  env:
+                    - name: DISCOVERY_HOST
+                      value: "discovery-server"
+                    - name: CONFIG_SERVER_PORT
+                      value: "30001"
+                    - name: CONFIG_SERVER_HOST
+                      value: "config-server"
+                    - name: SERVER_PORT
+                      value: "9020"
+    selector:
+        matchLabels:
+            svc: adjective-service

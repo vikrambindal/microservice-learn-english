@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata: 
+    name: verb
+    labels:
+        app: learn-english
+        tier: frontend
+spec:
+    type: NodePort
+    ports:
+      - targetPort: 9024
+        port: 9024
+        nodePort: 30007
+    selector:
+        svc: verb-service

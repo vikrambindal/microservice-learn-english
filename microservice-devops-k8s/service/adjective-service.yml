@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata: 
+    name: adjective
+    labels:
+        app: learn-english
+        tier: frontend
+spec:
+    type: NodePort
+    ports:
+      - targetPort: 9020
+        port: 9020
+        nodePort: 30003
+    selector:
+        svc: adjective-service

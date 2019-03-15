@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+    name: discovery-server
+    labels:
+        app: learn-english
+        tier: frontend
+spec:
+    replicas: 1
+    template:
+        metadata:
+            name: service-discovery
+            labels:
+                svc: service-discovery
+        spec:
+            containers:
+                - name: discovery-server
+                  image: vikrambindal/learn-english-microservice:discovery-server
+    selector:
+        matchLabels:
+            svc: service-discovery

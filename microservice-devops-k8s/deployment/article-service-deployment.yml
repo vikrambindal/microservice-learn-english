@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+    name: article
+    labels:
+        app: learn-english
+        tier: frontend
+spec:
+    replicas: 1
+    template:
+        metadata:
+            name: article
+            labels:
+                svc: article-service
+        spec:
+            hostname: article
+            containers:
+                - name: article
+                  image: vikrambindal/learn-english-microservice:article-service
+                  env:
+                    - name: DISCOVERY_HOST
+                      value: "discovery-server"
+                    - name: CONFIG_SERVER_PORT
+                      value: "30001"
+                    - name: CONFIG_SERVER_HOST
+                      value: "config-server"
+                    - name: SERVER_PORT
+                      value: "9021"
+    selector:
+        matchLabels:
+            svc: article-service
