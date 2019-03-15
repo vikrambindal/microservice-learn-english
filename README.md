@@ -6,27 +6,15 @@ This ia very simple yet illustrative application that demonstrates the user of v
 The application constructs a sentence using a combination of subject, noun, article, verb, adjective with each of these entities picking a word at random from their own properties file that aids in forming a sentence. 
 
 ## Stack
-Spring Cloud:
- - Eureka: Service Discovery
- - Config-Server: Distributed Configuration
- - Ribbon: Client Side Load Balancing
- - Feign: Declarative Endpoint invocation
- - Hystrix: Circuit Breaker
- - Turbine: Service Monitoring
- 
-Devops:
- - Docker
- - Docker Compose
- - Kubernetes
- 
-Codebase:
 
-| Code Base        | Application                         | Cloud Stack                |
-| ---------------- |:-----------------------------------:| --------------------------:|
-| discovery-server | discovery-server                    | Eureka                     |
-| config-server    | config-server                       | Config                     |
-| entity-service   | adjective,noun,verb,subject,article | REST                       |
-| sentence-service | sentence                            | REST, Ribbon,Feign,Hystrix |
+| Code Base          | Application                         | Cloud Stack         |
+| ------------------ |:-----------------------------------:| -------------------:|
+| discovery-server   | discovery-server                    | Eureka              |
+| config-server      | config-server                       | Config              |
+| entity-service     | adjective,noun,verb,subject,article | REST                |
+| sentence-service   | sentence                            | REST, Ribbon,Feign  |
+| sentence-dashboard | monitoring                          | Hystrix, Turbine    | 
+| devops-k8s         | devops                              | docker, kubernetes  |
 
 ## Getting Started
  - Clone the Repo
