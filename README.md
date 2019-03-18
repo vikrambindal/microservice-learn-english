@@ -26,4 +26,17 @@ The application constructs a sentence using a combination of subject, noun, arti
  - Devops:
    - To run the application with docker: docker-compose up -d. This will start the application in order of the dependencies
    - To run the application with Kubernetes: kubectl create -f {name}-deployment.yml and kubectl create -f {name}-service.yml
-   - The above assumes you have kubernetes, docker installed on your machine. 
+   
+| Code Base          | Port (docker-compose) | Port (k8s) | End-point |
+| ------------------ |:---------------------:|:----------:|----------:|
+| discovery-server   | 8888                  | 30000      |           |
+| config-server      | 8761                  | 30001      |           |
+| entity-service     |                       |            |           |
+| - adjective        | 9020                  | 30003      | /word     |
+| - noun             | 9040                  | 30005      | /word     |
+| - verb             | 9000                  | 30007      | /word     |
+| - article          | 9030                  | 30004      | /word     |
+| sentence-service   | 9050                  | 30010      | /sentence |
+| sentence-dashboard |                       |            |           | 
+
+   - NOTE: The above assumes you have kubernetes, docker installed on your machine. 
