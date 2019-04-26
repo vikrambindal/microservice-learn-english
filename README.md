@@ -23,6 +23,9 @@ The application constructs a sentence using a combination of subject, noun, arti
  - Individual entities are avaialable on http://localhost:{port}/word
  - Sentence formed using a combination is available on http://localhost:{port}/sentence
  - To see client side load balancing, run multiple instances of entities and invoke http://localhost:{port}/sentence?serverInfo=true . This will show different ports for each instance. 
+ - Turbine: http://localhost:{port}/turbine.stream
+ - Hystrix: http://localhost:{port}/actuator/hystrix.stream
+
  - Devops:
    - To run the application with docker: docker-compose up -d. This will start the application in order of the dependencies
    - To run the application with Kubernetes: kubectl create -f {name}-deployment.yml and kubectl create -f {name}-service.yml
